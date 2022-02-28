@@ -11,6 +11,8 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthService } from './shared/services/auth.service';
 import { MaterialAngularModule } from './material-angular.module';
+import { FormCreatorComponent } from './components/form-creator/form-creator.component';
+import { FormEditorComponent } from './components/form-editor/form-editor.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { MaterialAngularModule } from './material-angular.module';
     SignInComponent,
     SignUpComponent,
     DashboardComponent,
+    FormCreatorComponent,
+    FormEditorComponent,
   ],
   imports: [
     BrowserModule,

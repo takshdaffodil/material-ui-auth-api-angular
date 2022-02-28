@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { FormCreatorComponent } from './components/form-creator/form-creator.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { PrivateGuard } from './shared/guards/private.guard';
@@ -22,6 +23,10 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [PrivateGuard],
+  },
+  {
+    path: 'form',
+    component: FormCreatorComponent,
   },
 ];
 

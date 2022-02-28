@@ -9,6 +9,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
 
 const modules = [
   MatSliderModule,
@@ -19,6 +23,10 @@ const modules = [
   MatCardModule,
   MatIconModule,
   MatCheckboxModule,
+  DragDropModule,
+  MatTooltipModule,
+  MatDialogModule,
+  MatSelectModule,
 ];
 
 @NgModule({

@@ -1,4 +1,8 @@
-<mat-card class="card horizontal-center mt-5 text-center">
+<mat-card
+  style="background-color: grey"
+  class="card horizontal-center mt-5 text-center"
+  cdkDrag
+>
   <mat-card-title>User Dashboard</mat-card-title>
   <mat-card-content *ngIf="authService.userDataFromApi as user">
     <h3>Hello {{ user.userName }}</h3>

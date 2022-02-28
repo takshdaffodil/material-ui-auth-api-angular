@@ -1,0 +1,79 @@
+<div style="width: 1000px; margin: 0 auto">
+  <!-- <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <mat-form-field *ngFor="let control of input?.controls">
+      <mat-label>{{ control.label }} </mat-label>
+      <input
+        [name]="control.name"
+        matInput
+        [type]="control.type"
+        [formControlName]="control.name"
+        [value]="control.value"
+      />
+    </mat-form-field>
+    <button mat-stroked-button type="submit">Submit</button>
+  </form> -->
+
+  <div class="example-container">
+    <h2>Form Element List</h2>
+
+    <div
+      cdkDropList
+      #todoList="cdkDropList"
+      [cdkDropListData]="todo"
+      [cdkDropListConnectedTo]="[doneList]"
+      class="example-list"
+    >
+      <div class="example-box" *ngFor="let item of todo" cdkDrag>
+        {{ item.displayName }}
+      </div>
+    </div>
+  </div>
+
+  <div class="example-container">
+    <h2>Form</h2>
+
+    <div
+      cdkDropList
+      #doneList="cdkDropList"
+      [cdkDropListData]="done"
+      [cdkDropListConnectedTo]="[todoList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <form
+        [formGroup]="myForm"
+        *ngFor="let control of done"
+        [ngSwitch]="control.controlType"
+        (ngSubmit)="onSubmit()"
+      >
+        <mat-form-field
+          cdkDrag
+          [appearance]="control.style"
+          class="full-width-input"
+          *ngSwitchCase="'textbox'"
+        >
+          <mat-label>{{ control.label }} </mat-label>
+          <input
+            [name]="control.name"
+            matInput
+            [type]="control.type"
+            [formControlName]="control.name"
+            [value]="control.value"
+          />
+          <mat-icon (click)="openEditModal(control)">edit</mat-icon>
+        </mat-form-field>
+        <!-- <mat-icon>delete</mat-icon> -->
+        <div cdkDrag *ngSwitchCase="'button'">
+          <button
+            style="display: block"
+            mat-raised-button
+            [color]="control.color"
+          >
+            {{ control.value }}
+          </button>
+          <mat-icon (click)="openEditModal(control)">edit</mat-icon>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
