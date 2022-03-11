@@ -11,8 +11,12 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthService } from './shared/services/auth.service';
 import { MaterialAngularModule } from './material-angular.module';
-import { FormCreatorComponent } from './components/form-creator/form-creator.component';
-import { FormEditorComponent } from './components/form-editor/form-editor.component';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthReducer } from './store/reducers/auth.reducer';
+import { AuthEffects } from './store/effects/auth.effects';
 
 @NgModule({
   declarations: [
@@ -20,8 +24,6 @@ import { FormEditorComponent } from './components/form-editor/form-editor.compon
     SignInComponent,
     SignUpComponent,
     DashboardComponent,
-    FormCreatorComponent,
-    FormEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +32,12 @@ import { FormEditorComponent } from './components/form-editor/form-editor.compon
     ReactiveFormsModule,
     HttpClientModule,
     MaterialAngularModule,
+    StoreModule.forRoot({ auth: AuthReducer }, {}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+    EffectsModule.forRoot([AuthEffects]),
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],

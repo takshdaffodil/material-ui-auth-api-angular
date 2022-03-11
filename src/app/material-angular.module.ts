@@ -13,6 +13,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const modules = [
   MatSliderModule,
@@ -27,6 +29,8 @@ const modules = [
   MatTooltipModule,
   MatDialogModule,
   MatSelectModule,
+  MatSnackBarModule,
+  MatProgressSpinnerModule,
 ];
 
 @NgModule({

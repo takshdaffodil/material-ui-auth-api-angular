@@ -4,20 +4,21 @@
   cdkDrag
 >
   <mat-card-title>User Dashboard</mat-card-title>
-  <mat-card-content *ngIf="authService.userDataFromApi as user">
+
+  <mat-card-content *ngIf="userDataObs$ | async as user">
     <h3>Hello {{ user.userName }}</h3>
     <p>UserId :{{ user.userId }}</p>
     <p>UserType :{{ user.userType }}</p>
     <p>UserStatus :{{ user.userStatus }}</p>
-    <button
-      class="horizontal-center"
-      style="display: block"
-      mat-raised-button
-      color="primary"
-      type="submit"
-      (click)="authService.SignOutUser()"
-    >
-      Logout
-    </button>
   </mat-card-content>
+  <button
+    class="horizontal-center"
+    style="display: block"
+    mat-raised-button
+    color="primary"
+    type="submit"
+    (click)="authService.SignOutUser()"
+  >
+    Logout
+  </button>
 </mat-card>
