@@ -76,7 +76,7 @@
       <mat-checkbox formControlName="acceptTerms" color="primary"
         >Check me!</mat-checkbox
       >
-      <mat-error *ngIf="error">{{ error }}</mat-error>
+
       <button
         style="display: block; margin-top: 10px"
         mat-raised-button
@@ -84,7 +84,13 @@
         type="submit"
         [disabled]="signupForm.invalid"
       >
-        Signup
+        <mat-progress-spinner
+          color="accent"
+          mode="indeterminate"
+          *ngIf="isLoading | async"
+          [diameter]="30"
+        ></mat-progress-spinner>
+        <span *ngIf="!(isLoading | async)"> Signup </span>
       </button>
     </form>
   </mat-card-content>

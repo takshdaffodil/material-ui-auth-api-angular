@@ -4,11 +4,11 @@
 >
   <span>Api Authentication</span>
 
-  <div *ngIf="!authService.userDataFromApi">
+  <div *ngIf="!(isAuthenticated$ | async)">
     <a routerLink="sign-in" mat-stroked-button> Signin</a>
     <a routerLink="sign-up" mat-stroked-button> Signup</a>
   </div>
-  <div *ngIf="authService.userDataFromApi">
+  <div *ngIf="isAuthenticated$ | async">
     <a routerLink="dashboard" mat-stroked-button>Dashboard</a>
   </div>
 </mat-toolbar>

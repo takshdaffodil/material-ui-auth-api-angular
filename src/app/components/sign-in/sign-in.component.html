@@ -21,6 +21,7 @@
           placeholder="Ex. 123456"
         />
         <button
+          type="button"
           mat-icon-button
           matSuffix
           (click)="hide = !hide"
@@ -31,15 +32,20 @@
         </button>
         <mat-error>Password length should be more than 3 characters.</mat-error>
       </mat-form-field>
-      <mat-error *ngIf="error">{{ error }}</mat-error>
       <button
         style="display: block"
-        mat-raised-button
         color="primary"
+        mat-flat-button
         type="submit"
         [disabled]="signinForm.invalid"
       >
-        Signin
+        <mat-progress-spinner
+          color="accent"
+          mode="indeterminate"
+          *ngIf="isLoading | async"
+          [diameter]="30"
+        ></mat-progress-spinner>
+        <span *ngIf="!(isLoading | async)"> Signin </span>
       </button>
     </form>
   </mat-card-content>

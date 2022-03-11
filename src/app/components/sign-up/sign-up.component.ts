@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Store } from '@ngrx/store';
+import { emptyError } from 'src/app/store/actions/sign-in.actions';
+import { signUpRequest } from 'src/app/store/actions/sign-up.actions';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,8 +13,9 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 export class SignUpComponent implements OnInit {
   hidePass = true;
   hideCpass = true;
-  error = '';
   passwordMatch = true;
+  error = this.store.select((state) => state.auth?.error);
+  isLoading = this.store.select((state) => state.auth?.loading);
 
   signupForm = new FormGroup({
     firstname: new FormControl('', [
@@ -39,35 +42,25 @@ export class SignUpComponent implements OnInit {
     return this.signupForm.get('cpassword');
   }
 
-  constructor(public authService: AuthService, public router: Router) {}
+  constructor(
+    public store: Store<{ auth: any }>,
+    public snackbar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
-    this.onFormChange();
     this.passwordsMatch();
+    this.showSnackbarOnError();
   }
 
   signupUser() {
-    if (this.password?.value === this.cpassword?.value) {
-      this.authService.SignUpUser(this.signupForm.value).subscribe(
-        (res) => {
-          this.router.navigate(['sign-in']);
-        },
-        (err) => {
-          if (err.error) {
-            this.error = err.error;
-          }
-        },
-        () => console.log('Signup completed.')
-      );
+    if (
+      this.signupForm.get('password')?.value ===
+      this.signupForm.get('cpassword')?.value
+    ) {
+      this.store.dispatch(signUpRequest(this.signupForm.value));
     } else {
       this.passwordMatch = false;
     }
-  }
-
-  onFormChange() {
-    this.signupForm.valueChanges.subscribe((val) => {
-      this.error = '';
-    });
   }
 
   passwordsMatch() {
@@ -76,6 +69,15 @@ export class SignUpComponent implements OnInit {
         this.passwordMatch = false;
       } else {
         this.passwordMatch = true;
+      }
+    });
+  }
+
+  showSnackbarOnError() {
+    this.error.subscribe((res) => {
+      if (res) {
+        this.snackbar.open(res, 'OK!', { duration: 2000 });
+        this.store.dispatch(emptyError());
       }
     });
   }
